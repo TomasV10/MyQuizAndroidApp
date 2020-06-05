@@ -83,13 +83,13 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 "A", "B", "C", 2,
                 Question.DIFFICULTY_MEDIUM, Category.GEOGRAPHY);
         addQuestion(q2);
-        Question q3 = new Question("Math, Hard: c is correct",
+        Question q3 = new Question("Math, Hard: C is correct",
                 "A", "B", "C", 3,
                 Question.DIFFICULTY_HARD, Category.MATH);
         addQuestion(q3);
-        Question q4 = new Question("Math, Easy: A is correct",
+        Question q4 = new Question("Math, Hard: A is correct",
                 "A", "B", "C", 1,
-                Question.DIFFICULTY_EASY, Category.MATH);
+                Question.DIFFICULTY_HARD, Category.MATH);
         addQuestion(q4);
         Question q5 = new Question("Non existing, Easy: A is correct",
                 "A", "B", "C", 1,
