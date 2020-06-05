@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -39,7 +42,7 @@ public class StartingScreenActivity extends AppCompatActivity {
         textViewHighscore = findViewById(R.id.text_view_highscore);
         spinnerCategory = findViewById(R.id.spinner_category);
         spinnerDifficulty = findViewById(R.id.spinner_difficulty);
-
+        blinkingAnimation();
         loadCategories();
         loadDifficultyLevels();
 
@@ -74,11 +77,24 @@ public class StartingScreenActivity extends AppCompatActivity {
                 int score = data.getIntExtra(QuizActivity.EXTRA_SCORE, 0);
                 if(score > highscore){
                     updateHighscore(score);
+
+                }else {
+                    textViewHighscore.setTextColor(Color.YELLOW);
                 }
             }
         }
     }
 
+
+    private void blinkingAnimation(){
+        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(500);
+        anim.setStartOffset(20);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+        textViewHighscore.startAnimation(anim);
+        textViewHighscore.setTextColor(Color.RED);
+    }
 
     private void loadCategories(){
         QuizDbHelper dbHelper = QuizDbHelper.getInstance(this);
@@ -107,6 +123,7 @@ public class StartingScreenActivity extends AppCompatActivity {
     private void updateHighscore(int highscoreNew){
         highscore = highscoreNew;
         textViewHighscore.setText("Highscore: " + highscore);
+        textViewHighscore.setTextColor(Color.GREEN);
         SharedPreferences preferences = getSharedPreferences(SHARE_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(KEY_HIGHSCORE, highscore);
